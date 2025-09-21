@@ -2,7 +2,7 @@
   <div>
     <div id="app">
       <nav v-if="isLoggedIn()" class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <router-link to="/" class="navbar-brand">AI Legal Assistant for Rakyat</router-link>
+        <router-link to="/rag" class="navbar-brand">AI Legal Assistant for Rakyat</router-link>
         <button
           class="navbar-toggler"
           type="button"
@@ -20,13 +20,7 @@
           </ul>
           <ul class="nav navbar-nav navbar-right mr-4 text-light">
             <li class="nav-item mr-4">
-              <router-link to="/">General chat with LLMs</router-link>
-            </li>
-            <li class="nav-item mr-4">
-              <span>|</span>
-            </li>
-            <li class="nav-item mr-4">
-              <router-link to="/rag">RAG chat with LLMs</router-link>
+              <router-link to="/rag">Chat with AI Legal professional</router-link>
             </li>
             <li class="nav-item mr-4">
               <span>|</span>

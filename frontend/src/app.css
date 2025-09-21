@@ -120,3 +120,7 @@ body {
   background-color: #e9f2fd;
   
 }
+
+.card-header {
+  background-color: rgb(220 165 255);
+}

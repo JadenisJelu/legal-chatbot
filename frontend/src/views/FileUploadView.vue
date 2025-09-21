@@ -5,7 +5,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 mb-4">
-        <div class="card-header" style="background-color:#FF9900">
+        <div class="card-header">
           <i class="bi bi-cloud-upload"></i> Contract Upload & Analysis
         </div>
         <div class="card">
@@ -83,7 +83,7 @@
       
       <!-- Sidebar with sample documents -->
       <div class="col-lg-4 mb-4">
-        <div class="card-header" style="background-color:#FF9900">
+        <div class="card-header">
           <i class="bi bi-info-circle"></i> Supported Documents
         </div>
         <div class="card">

@@ -5,7 +5,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-6 mb-4" style="min-width: 750px;">
-        <div class="card-header" style="background-color:#FF9900">
+        <div class="card-header">
           RAG conversation with other models
         </div>
         <div class="card">
@@ -77,7 +77,7 @@
         </div>
       </div>
       <div class="col-lg-6 mb-4" style="max-width: 350px;">
-        <div class="card-header" style="background-color:#FF9900">
+        <div class="card-header">
           Sample Questions
         </div>
         <div class="card">

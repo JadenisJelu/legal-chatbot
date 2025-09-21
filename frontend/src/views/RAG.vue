@@ -5,8 +5,8 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-6 mb-4" style="min-width: 750px;">
-        <div class="card-header" style="background-color:#FF9900">
-          RAG conversation with various LLMs
+        <div class="card-header">
+          Conversation panel
         </div>
         <div class="card">
           <img class="card-img-top" src="" alt=""/>
@@ -78,7 +78,7 @@
         </div>
       </div>
       <div class="col-lg-6 mb-4" style="max-width: 350px;">
-        <div class="card-header" style="background-color:#FF9900">
+        <div class="card-header">
           Sample Questions
         </div>
         <div class="card">
@@ -129,13 +129,11 @@ import { getAuthToken } from './../utils/auth'
                 let currentObj = this;
                 const json = JSON.stringify({
                     query: this.name,
-                    model_id: model_id,
-                    temperature: temperature,
-                    max_tokens: token
-
-
+                    model_id: "us.meta.llama3-1-8b-instruct-v1:0",
+                    temperature: 0.5,
+                    max_tokens: 1000
                 });
-               console.log(json)
+               console.log(json,model_id,temperature,token)
                const config = {
     headers:{
         'Content-Type': 'application/json',

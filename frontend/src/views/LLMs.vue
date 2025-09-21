@@ -5,7 +5,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-6 mb-4" style="min-width: 750px;">
-        <div class="card-header" style="background-color:#FF9900">
+        <div class="card-header">
           General conversation with various LLMs
         </div>
         <div class="card">
@@ -83,18 +83,22 @@
         </div>
       </div>
       <div class="col-lg-6 mb-4" style="max-width: 350px;">
-        <div class="card-header" style="background-color:#FF9900">
+        <div class="card-header">
           Sample Questions
         </div>
         <div class="card">
           <img class="card-img-top" src="" alt="" />
 
           <div class="card-body">
-            <label style="font-weight:lighter;color:grey">What is misrepresentation?</label>
+            <label style="font-weight:lighter;color:grey">List top 10 cities of USA by population?</label>
             <br />
-            <label style="font-weight:lighter;color:grey">Can police search my car?</label>
+            <label style="font-weight:lighter;color:grey">What is the distance between Earth and Moon?</label>
             <br />
-            <label style="font-weight:lighter;color:grey" >What if I didn't pay income tax?</label>
+            <label style="font-weight:lighter;color:grey">List out all USA presidents, sort by most recent.</label>
+            <br />
+            <label style="font-weight:lighter;color:grey" >How many beers are need for a 2 hour Happy Hour party with a guest count of 50?</label>
+            <br />
+            <label style="font-weight:lighter; color:grey" >Tell me a story around a fox and tiger.</label>
           </div>
         </div>
       </div>
