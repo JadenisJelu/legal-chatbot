@@ -69,6 +69,13 @@ Resources:
       PathPart: 'kb'
       RestApiId: !Ref BedrockLambdaApi
 
+  UploadResource:
+    Type: AWS::ApiGateway::Resource
+    Properties:
+      ParentId: !GetAtt BedrockLambdaApi.RootResourceId
+      PathPart: 'upload'
+      RestApiId: !Ref BedrockLambdaApi
+
   # KB Method Config
   KBOptionsMethod:
     Type: AWS::ApiGateway::Method
@@ -128,6 +135,67 @@ Resources:
     DependsOn: KBPostMethod
     Properties:
       Description: KB API Deployment
+      RestApiId: !Ref BedrockLambdaApi
+
+  # Upload Method Config
+  UploadOptionsMethod:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: OPTIONS
+      ResourceId: !Ref UploadResource
+      RestApiId: !Ref BedrockLambdaApi
+      AuthorizationType: NONE
+      Integration:
+        IntegrationResponses:
+          - StatusCode: 200
+            ResponseParameters:
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+        PassthroughBehavior: WHEN_NO_MATCH
+        RequestTemplates:
+          application/json: '{"statusCode": 200}'
+        Type: MOCK
+      MethodResponses:
+        - StatusCode: 200
+          ResponseModels:
+            application/json: 'Empty'
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+            method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
+            method.response.header.Access-Control-Allow-Origin: "'*'"
+
+  UploadPostMethod:
+    Type: AWS::ApiGateway::Method
+    Properties:
+      HttpMethod: POST
+      ResourceId: !Ref UploadResource
+      RestApiId: !Ref BedrockLambdaApi
+      AuthorizationType: NONE
+      Integration:
+        IntegrationHttpMethod: POST
+        Type: AWS_PROXY
+        Uri: !Sub "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UploadFunction.Arn}/invocations"
+      MethodResponses:
+        - StatusCode: 200
+          ResponseParameters:
+            method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+            method.response.header.Access-Control-Allow-Methods: "'POST,OPTIONS'"
+            method.response.header.Access-Control-Allow-Origin: "'*'"
+
+  UploadFunctionPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref UploadFunction
+      Action: lambda:InvokeFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${BedrockLambdaApi}/*/*/*"
+
+  UploadApiDeployment:
+    Type: AWS::ApiGateway::Deployment
+    DependsOn: UploadPostMethod
+    Properties:
+      Description: Upload API Deployment
       RestApiId: !Ref BedrockLambdaApi
       
   # RAG Method Config
@@ -466,6 +534,19 @@ Resources:
         Variables:
           KB_ID: copy_kb_id
       Role: !GetAtt LLMExecutionRole.Arn
+
+  UploadFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: uploadfunction.lambda_handler
+      CodeUri: lambdas/contractReview
+      Runtime: python3.11
+      Architectures:
+        - x86_64
+      Environment:
+        Variables:
+          S3_BUCKET_NAME: !Ref BedrockWSS3Bucket
+      Role: !GetAtt LLMExecutionRole.Arn
   
   LLMExecutionRole:
     Type: AWS::IAM::Role
@@ -494,6 +575,7 @@ Resources:
               - kendra:GetQuerySuggestions
               - kendra:Retrieve
               - s3:GetObject
+              - s3:PutObject
               - s3:ListBucket
               - s3:ListBucketVersions
               - s3:DescribeBucket

@@ -72,7 +72,7 @@ def invoke_claude(model_id, prompt, max_tokens, temperature):
         # Clean body depending on model type
         body = clean_body_for_model(model_id, body)
 
-        response = bedrock_runtime.invoke_model(
+        response = bedrock_runtime_client.invoke_model(
             modelId=model_id,
             body=json.dumps(body),
         )
@@ -80,8 +80,8 @@ def invoke_claude(model_id, prompt, max_tokens, temperature):
 
         if "content" in response_body and len(response_body["content"]) > 0:
             return response_body["content"][0]["text"]
-        elif "outputText" in response_body:  # For Nova models
-            return response_body["outputText"]
+        elif "output" in response_body:  # For Nova models
+            return response_body["output"]["message"]["content"][0]["text"]
         else:
             return str(response_body)
     except Exception as e:
@@ -92,12 +92,21 @@ def clean_body_for_model(model_id, body):
         # Nova models don't use Anthropic schema
         body.pop("max_tokens", None)
         body.pop("anthropic_version", None)
-        messages = body.pop("messages", None)
+        body.pop("temperature", None)
+        messages = body.get("messages", None)
         if messages and "content" in messages[0]:
             # Extract plain text from Anthropic-style messages
             text_value = messages[0]["content"][0]["text"]
-            body["prompt"] = text_value
-        # Nova supports temperature, top_p, stop_sequences
+            # Rewrite messages in Nova format
+            body["messages"] = [
+                {
+                    "role": messages[0]["role"],
+                    "content": [
+                        {"text": text_value}
+                    ]
+                }
+            ]
+        # Nova supports top_p, stop_sequences
     return body
         
 def invoke_mistral_7b(model_id, prompt, temperature, max_tokens):

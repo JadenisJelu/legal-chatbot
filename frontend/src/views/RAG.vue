@@ -85,13 +85,11 @@
           <img class="card-img-top" src="" alt="" />
 
           <div class="card-body">
-            <label style="font-weight:lighter;color:grey">What is federal funds rate as of April 2024?</label>
+            <label style="font-weight:lighter;color:grey">What is misrepresentation?</label>
             <br />
-            <label style="font-weight:lighter;color:grey">What is federal funds rate as of September 2025?</label>
+            <label style="font-weight:lighter;color:grey">Can police search my car?</label>
             <br />
-            <label style="font-weight:lighter;color:grey" >What are the demographic trends in dental space?</label>
-            <br />
-            <label style="font-weight:lighter; color:grey" >What are Amazon sustainability goals by year 2040?</label>
+            <label style="font-weight:lighter;color:grey" >What if I didn't pay income tax?</label>
           </div>
         </div>
       </div>

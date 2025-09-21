@@ -2,7 +2,7 @@
   <div>
     <div id="app">
       <nav v-if="isLoggedIn()" class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <router-link to="/" class="navbar-brand">Serverless Chatbot using Amazon Bedrock</router-link>
+        <router-link to="/" class="navbar-brand">AI Legal Assistant for Rakyat</router-link>
         <button
           class="navbar-toggler"
           type="button"
@@ -32,13 +32,7 @@
               <span>|</span>
             </li>
             <li class="nav-item mr-4">
-              <router-link to="/prompt">Prompt Engineering</router-link>
-            </li>
-            <li class="nav-item mr-4">
-              <span>|</span>
-            </li>
-            <li class="nav-item mr-4">
-              <router-link to="/kb">RAG with Knowledge Bases</router-link>
+              <router-link to="/upload">Contract Review</router-link>
             </li>
             <li class="nav-item mr-4">
               <span>|</span>

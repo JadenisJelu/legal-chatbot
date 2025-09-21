@@ -7,6 +7,7 @@ import LoginView from './views/LoginView.vue'
 import AboutView from './views/AboutView.vue'
 import NotFoundPage from './components/NotFoundPage.vue'
 import KB from './views/KB.vue'
+import FileUploadView from './views/FileUploadView.vue'
 import { clearAuthToken, isLoggedIn } from './utils/auth'
 
 Vue.use(Router)
@@ -34,6 +35,11 @@ const router = new Router({
       path: '/prompt',
       name: 'prompt',
       component: PromptView
+    },
+    {
+      path: '/upload',
+      name: 'upload',
+      component: FileUploadView
     },
     {
       path: '/login',
